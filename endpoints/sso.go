@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 const ssoPath = "/sso"
@@ -19,7 +19,7 @@ const ssoPath = "/sso"
 // If successful, the server returns a redirect to the provider's authorization
 // URL. The client will follow it and return the final HTTP response.
 //
-// GoTrue allows you to skip following the redirect by setting SkipHTTPRedirect
+// Auth allows you to skip following the redirect by setting SkipHTTPRedirect
 // on the request struct. In this case, the URL to redirect to will be returned
 // in the response.
 func (c *Client) SSO(req types.SSORequest) (*types.SSOResponse, error) {

@@ -1,11 +1,11 @@
 version: "3.9"
 services:
-  gotrue:
+  auth:
     # Signups enabled, auto-confirm off
-    container_name: gotrue
+    container_name: auth
     depends_on:
       - postgres
-    image: supabase/gotrue:v2.157.0
+    image: supabase/auth:v2.160.0
     restart: on-failure
     ports:
       - "9999:9999"
@@ -25,12 +25,12 @@ services:
       GOTRUE_MFA_RATE_LIMIT_CHALLENGE_AND_VERIFY: "1000000"
       GOTRUE_SMTP_MAX_FREQUENCY: "1ns"
 
-  gotrue_autoconfirm:
+  auth_autoconfirm:
     # Signups enabled, auto-confirm on
-    container_name: gotrue_autoconfirm
+    container_name: auth_autoconfirm
     depends_on:
       - postgres
-    image: supabase/gotrue:v2.157.0
+    image: supabase/auth:v2.160.0
     restart: on-failure
     ports:
       - "9998:9998"
@@ -57,12 +57,12 @@ services:
       GOTRUE_EXTERNAL_GITHUB_SECRET: "clientsecretvaluessssh"
       GOTRUE_EXTERNAL_GITHUB_REDIRECT_URI: "http://localhost:3000/callback"
 
-  gotrue_signup_disabled:
+  auth_signup_disabled:
     # Signups disabled
-    container_name: gotrue_signup_disabled
+    container_name: auth_signup_disabled
     depends_on:
       - postgres
-    image: supabase/gotrue:v2.157.0
+    image: supabase/auth:v2.160.0
     restart: on-failure
     ports:
       - "9997:9997"
@@ -88,7 +88,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.postgres.dev
-    container_name: gotrue_postgres
+    container_name: auth_postgres
     ports:
       - "5432:5432"
     environment:

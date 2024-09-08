@@ -1,14 +1,14 @@
-package gotrue
+package auth
 
 import (
 	"errors"
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/endpoints"
+	"github.com/supabase-community/auth-go/endpoints"
 )
 
 var (
-	ErrInvalidProjectReference = errors.New("cannot create gotrue client: invalid project reference")
+	ErrInvalidProjectReference = errors.New("cannot create auth client: invalid project reference")
 )
 
 var _ Client = &client{}
@@ -17,13 +17,13 @@ type client struct {
 	*endpoints.Client
 }
 
-// Set up a new GoTrue client.
+// Set up a new Auth client.
 //
 // projectReference: The project reference is the unique identifier for your
 // Supabase project. It can be found in the Supabase dashboard under project
 // settings as Reference ID.
 //
-// apiKey: The API key is used to authenticate requests to the GoTrue server.
+// apiKey: The API key is used to authenticate requests to the Auth server.
 // This should be your anon key.
 //
 // This function does not validate your project reference. Requests will fail
@@ -34,9 +34,9 @@ func New(projectReference string, apiKey string) Client {
 	}
 }
 
-func (c client) WithCustomGoTrueURL(url string) Client {
+func (c client) WithCustomAuthURL(url string) Client {
 	return &client{
-		Client: c.Client.WithCustomGoTrueURL(url),
+		Client: c.Client.WithCustomAuthURL(url),
 	}
 }
 

@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 const authorizePath = "/authorize"
