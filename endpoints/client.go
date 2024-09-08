@@ -24,7 +24,7 @@ func New(projectReference string, apiKey string) *Client {
 	}
 }
 
-func (c Client) WithCustomGoTrueURL(url string) *Client {
+func (c Client) WithCustomAuthURL(url string) *Client {
 	return &Client{
 		client:  c.client,
 		baseURL: url,

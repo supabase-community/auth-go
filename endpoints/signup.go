@@ -9,7 +9,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 const signupPath = "/signup"

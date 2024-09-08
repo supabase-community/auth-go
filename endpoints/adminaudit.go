@@ -10,7 +10,7 @@ import (
 
 	"github.com/tomnomnom/linkheader"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 const adminAuditPath = "/admin/audit"

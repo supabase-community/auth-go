@@ -6,14 +6,14 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 var healthPath = "/health"
 
 // GET /health
 //
-// Check the health of the GoTrue server.
+// Check the health of the Auth server.
 func (c *Client) HealthCheck() (*types.HealthCheckResponse, error) {
 	r, err := c.newRequest(healthPath, http.MethodGet, nil)
 	if err != nil {

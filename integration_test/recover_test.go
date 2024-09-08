@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 func TestRecover(t *testing.T) {

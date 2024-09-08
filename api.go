@@ -1,12 +1,12 @@
-package gotrue
+package auth
 
 import (
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
-// Create a new client using gotrue.New, then you can call the methods below.
+// Create a new client using auth.New, then you can call the methods below.
 //
 // Some methods require bearer token authentication. To set the bearer token,
 // use the WithToken(token) method.
@@ -15,15 +15,15 @@ type Client interface {
 	// Options:
 
 	// By default, the client will use the supabase project reference and assume
-	// you are connecting to the GoTrue server as part of a supabase project.
-	// To connect to a GoTrue server hosted elsewhere, you can specify a custom
+	// you are connecting to the Auth server as part of a supabase project.
+	// To connect to a Auth server hosted elsewhere, you can specify a custom
 	// URL using this method.
 	//
 	// It returns a copy of the client, so only requests made with the returned
 	// copy will use the new URL.
 	//
 	// This method does not validate the URL you pass in.
-	WithCustomGoTrueURL(url string) Client
+	WithCustomAuthURL(url string) Client
 	// WithToken sets the access token to pass when making admin requests that
 	// require token authentication.
 	//
@@ -164,7 +164,7 @@ type Client interface {
 
 	// GET /health
 	//
-	// Check the health of the GoTrue server.
+	// Check the health of the Auth server.
 	HealthCheck() (*types.HealthCheckResponse, error)
 
 	// POST /invite
@@ -217,7 +217,7 @@ type Client interface {
 
 	// GET /settings
 	//
-	// Returns the publicly available settings for this gotrue instance.
+	// Returns the publicly available settings for this auth instance.
 	GetSettings() (*types.SettingsResponse, error)
 
 	// POST /signup
@@ -294,7 +294,7 @@ type Client interface {
 	// provided for convenience and will simply POST your HTTP request to the
 	// endpoint and return the response.
 	//
-	// For required parameters, see the SAML spec or the GoTrue implementation
+	// For required parameters, see the SAML spec or the Auth implementation
 	// of this endpoint.
 	//
 	// The server may issue redirects. Using the default HTTP client, this method
@@ -317,7 +317,7 @@ type Client interface {
 	// If successful, the server returns a redirect to the provider's authorization
 	// URL. The client will follow it and return the final HTTP response.
 	//
-	// GoTrue allows you to skip following the redirect by setting SkipHTTPRedirect
+	// Auth allows you to skip following the redirect by setting SkipHTTPRedirect
 	// on the request struct. In this case, the URL to redirect to will be returned
 	// in the response.
 	SSO(req types.SSORequest) (*types.SSOResponse, error)

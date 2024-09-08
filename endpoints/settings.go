@@ -6,14 +6,14 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/auth-go/types"
 )
 
 var settingsPath = "/settings"
 
 // GET /settings
 //
-// Returns the publicly available settings for this gotrue instance.
+// Returns the publicly available settings for this auth instance.
 func (c *Client) GetSettings() (*types.SettingsResponse, error) {
 	r, err := c.newRequest(settingsPath, http.MethodGet, nil)
 	if err != nil {

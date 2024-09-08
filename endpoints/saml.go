@@ -47,7 +47,7 @@ func (c *Client) SAMLMetadata() ([]byte, error) {
 // provided for convenience and will simply POST your HTTP request to the
 // endpoint and return the response.
 //
-// For required parameters, see the SAML spec or the GoTrue implementation
+// For required parameters, see the SAML spec or the Auth implementation
 // of this endpoint.
 //
 // The server may issue redirects. Using the default HTTP client, this method

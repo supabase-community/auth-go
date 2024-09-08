@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/supabase-community/gotrue-go"
+	"github.com/supabase-community/auth-go"
 )
 
 const (
@@ -25,16 +25,16 @@ const (
 
 var (
 	// Global clients are used for all tests in this package.
-	client               gotrue.Client
-	autoconfirmClient    gotrue.Client
-	signupDisabledClient gotrue.Client
+	client               auth.Client
+	autoconfirmClient    auth.Client
+	signupDisabledClient auth.Client
 
 	// Used to validate UUIDs.
 	uuidRegex = regexp.MustCompile(`^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$`)
 )
 
 func randomString(n int) string {
-	// Using all lower case because email addresses are lowercased by GoTrue.
+	// Using all lower case because email addresses are lowercased by Auth.
 	letterBytes := "abcdefghijklmnopqrstuvwxyz"
 	b := make([]byte, n)
 	for i := range b {
@@ -74,16 +74,16 @@ func adminToken() string {
 	return token
 }
 
-func withAdmin(c gotrue.Client) gotrue.Client {
+func withAdmin(c auth.Client) auth.Client {
 	return c.WithToken(adminToken())
 }
 
 func TestMain(m *testing.M) {
 	// Please refer to ./setup/docker-compose.yaml and ./README.md for more info
 	// on this test set up.
-	client = gotrue.New(projectReference, apiKey).WithCustomGoTrueURL("http://localhost:9999")
-	autoconfirmClient = gotrue.New(projectReference, apiKey).WithCustomGoTrueURL("http://localhost:9998")
-	signupDisabledClient = gotrue.New(projectReference, apiKey).WithCustomGoTrueURL("http://localhost:9997")
+	client = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
+	autoconfirmClient = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9998")
+	signupDisabledClient = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9997")
 
 	// Ensure the server is ready before running tests.
 	err := backoff.Retry(
@@ -129,7 +129,7 @@ func TestWithClient(t *testing.T) {
 	assert := assert.New(t)
 	require := require.New(t)
 
-	c := gotrue.New(projectReference, apiKey).WithCustomGoTrueURL("http://localhost:9999")
+	c := auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
 	h, err := c.HealthCheck()
 	require.NoError(err)
 	assert.Equal("GoTrue", h.Name)
