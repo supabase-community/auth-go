@@ -49,6 +49,7 @@ func (c *Client) Authorize(req types.AuthorizeRequest) (*types.AuthorizeResponse
 	q := r.URL.Query()
 	q.Add("scopes", req.Scopes)
 	q.Add("provider", string(req.Provider))
+	q.Add("redirect_to", req.RedirectTo)
 
 	verifier := ""
 

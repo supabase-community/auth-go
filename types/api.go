@@ -285,6 +285,7 @@ const (
 
 type AuthorizeRequest struct {
 	Provider Provider
+	RedirectTo string
 	FlowType FlowType
 	Scopes   string
 }
