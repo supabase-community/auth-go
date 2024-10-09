@@ -26,7 +26,7 @@ func (e *ErrInvalidGenerateLinkRequest) Error() string {
 var (
 	ErrInvalidAdminAuditRequest        = errors.New("admin audit request is invalid - if Query is not nil, then query Column must be author, action or type, and value must be given")
 	ErrInvalidAdminUpdateFactorRequest = errors.New("admin update factor request is invalid - nothing to update")
-	ErrInvalidTokenRequest             = errors.New("token request is invalid - grant_type must be password or refresh_token, email and password must be provided for grant_type=password, refresh_token must be provided for grant_type=refresh_token")
+	ErrInvalidTokenRequest             = errors.New("token request is invalid - grant_type must be either one of password, refresh_token, or pkce, email and password must be provided for grant_type=password, refresh_token must be provided for grant_type=refresh_token, auth_code and code_verifier must be provided for grant_type=pkce")
 	ErrInvalidVerifyRequest            = errors.New("verify request is invalid - type, token and redirect_to must be provided, and email or phone must be provided to VerifyForUser")
 )
 
@@ -475,9 +475,7 @@ type TokenRequest struct {
 	RefreshToken string `json:"refresh_token,omitempty"`
 
 	// Code and CodeVerifier are required if GrantType is 'pkce'.
-	Code string `json:"code,omitempty"`
-
-	// Code and CodeVerifier are required if GrantType is 'pkce'.
+	Code         string `json:"auth_code,omitempty"`
 	CodeVerifier string `json:"code_verifier,omitempty"`
 
 	// Provide Captcha token if enabled. Not required if GrantType is 'refresh_token'.
