@@ -139,7 +139,7 @@ func (c *Client) VerifyForUser(req types.VerifyForUserRequest) (*types.VerifyFor
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusSeeOther {
+	if resp.StatusCode != http.StatusOK {
 		fullBody, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
@@ -152,5 +152,6 @@ func (c *Client) VerifyForUser(req types.VerifyForUserRequest) (*types.VerifyFor
 	if err != nil {
 		return nil, err
 	}
+
 	return &res, nil
 }
