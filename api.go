@@ -99,7 +99,7 @@ type Client interface {
 	// Get a list of users.
 	//
 	// Requires admin token.
-	AdminListUsers() (*types.AdminListUsersResponse, error)
+	AdminListUsers(req types.AdminListUsersRequest) (*types.AdminListUsersResponse, error)
 	// GET /admin/users/{user_id}
 	//
 	// Get a user by their user_id.

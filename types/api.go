@@ -117,6 +117,11 @@ type AdminCreateUserResponse struct {
 	User
 }
 
+type AdminListUsersRequest struct {
+	Page    int `json:"page,omitempty"`
+	PerPage int `json:"per_page,omitempty"`
+}
+
 type AdminListUsersResponse struct {
 	Users []User `json:"users"`
 }
@@ -284,10 +289,10 @@ const (
 )
 
 type AuthorizeRequest struct {
-	Provider Provider
+	Provider   Provider
 	RedirectTo string
-	FlowType FlowType
-	Scopes   string
+	FlowType   FlowType
+	Scopes     string
 }
 
 type AuthorizeResponse struct {

@@ -52,8 +52,13 @@ func (c *Client) AdminCreateUser(req types.AdminCreateUserRequest) (*types.Admin
 // GET /admin/users
 //
 // Get a list of users.
-func (c *Client) AdminListUsers() (*types.AdminListUsersResponse, error) {
-	r, err := c.newRequest(adminUsersPath, http.MethodGet, nil)
+func (c *Client) AdminListUsers(req types.AdminListUsersRequest) (*types.AdminListUsersResponse, error) {
+	body, err := json.Marshal(req)
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := c.newRequest(adminUsersPath, http.MethodGet, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
