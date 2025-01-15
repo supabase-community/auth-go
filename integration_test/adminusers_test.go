@@ -39,7 +39,7 @@ func TestAdminListUsers(t *testing.T) {
 
 	admin := withAdmin(client)
 
-	// Create a user that will be skipped by pagination
+	// Create a user that we know should be returned
 	pass := "password"
 	email := randomEmail()
 	req := types.AdminCreateUserRequest{
@@ -51,20 +51,8 @@ func TestAdminListUsers(t *testing.T) {
 	require.NoError(err)
 	require.Regexp(uuidRegex, createResp.ID)
 
-	// Create a user that we know should be returned
-	pass = "password"
-	email = randomEmail()
-	req = types.AdminCreateUserRequest{
-		Email:    email,
-		Role:     "test",
-		Password: &pass,
-	}
-	createResp, err = admin.AdminCreateUser(req)
-	require.NoError(err)
-	require.Regexp(uuidRegex, createResp.ID)
-
 	// Then list and look up the user we just created
-	page := 1
+	page := 0
 	perPage := 1
 	resp, err := admin.AdminListUsers(types.AdminListUsersRequest{
 		Page:    &page,
@@ -74,9 +62,7 @@ func TestAdminListUsers(t *testing.T) {
 	assert.NotEmpty(resp)
 	for _, u := range resp.Users {
 		assert.NotEqual(uuid.Nil, u.ID)
-		if u.ID == createResp.ID {
-			assert.Equal(u.Email, createResp.Email)
-		}
+		assert.Equal(u.Email, createResp.Email)
 	}
 }
 

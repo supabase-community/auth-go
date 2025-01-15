@@ -118,8 +118,8 @@ type AdminCreateUserResponse struct {
 }
 
 type AdminListUsersRequest struct {
-	Page    *int `json:"page,omitempty"`
-	PerPage *int `json:"per_page,omitempty"`
+	Page    *int
+	PerPage *int
 }
 
 type AdminListUsersResponse struct {

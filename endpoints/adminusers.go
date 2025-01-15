@@ -53,15 +53,19 @@ func (c *Client) AdminCreateUser(req types.AdminCreateUserRequest) (*types.Admin
 //
 // Get a list of users.
 func (c *Client) AdminListUsers(req types.AdminListUsersRequest) (*types.AdminListUsersResponse, error) {
-	body, err := json.Marshal(req)
+	r, err := c.newRequest(adminUsersPath, http.MethodGet, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	r, err := c.newRequest(adminUsersPath, http.MethodGet, bytes.NewBuffer(body))
-	if err != nil {
-		return nil, err
+	q := r.URL.Query()
+	if req.Page != nil {
+		q.Add("page", fmt.Sprintf("%d", *req.Page))
 	}
+	if req.PerPage != nil {
+		q.Add("per_page", fmt.Sprintf("%d", *req.PerPage))
+	}
+	r.URL.RawQuery = q.Encode()
 
 	resp, err := c.client.Do(r)
 	if err != nil {
