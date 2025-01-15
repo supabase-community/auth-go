@@ -64,9 +64,11 @@ func TestAdminListUsers(t *testing.T) {
 	require.Regexp(uuidRegex, createResp.ID)
 
 	// Then list and look up the user we just created
+	page := 1
+	perPage := 1
 	resp, err := admin.AdminListUsers(types.AdminListUsersRequest{
-		Page:    1,
-		PerPage: 1,
+		Page:    &page,
+		PerPage: &perPage,
 	})
 	require.NoError(err)
 	assert.NotEmpty(resp)
