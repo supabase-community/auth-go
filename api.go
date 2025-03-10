@@ -233,6 +233,10 @@ type Client interface {
 	//
 	// This is a convenience method that calls Token with the password grant type
 	SignInWithPhonePassword(phone, password string) (*types.TokenResponse, error)
+	// Sign in with id token
+	//
+	// This is a convenience method that calls Token with the id_token grant type
+	SignInWithIdToken(provider, idToken, nonce, accessToken, captchaToken string) (*types.TokenResponse, error)
 	// Sign in with refresh token
 	//
 	// This is a convenience method that calls Token with the refresh_token grant type

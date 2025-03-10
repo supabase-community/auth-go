@@ -484,6 +484,12 @@ type TokenRequest struct {
 	Code         string `json:"auth_code,omitempty"`
 	CodeVerifier string `json:"code_verifier,omitempty"`
 
+	// Provider and IdToken are required if GrantType is 'id_token'.
+	Provider    string `json:"provider,omitempty"`
+	IdToken     string `json:"id_token,omitempty"`
+	AccessToken string `json:"access_token,omitempty"`
+	Nonce       string `json:"nonce,omitempty"`
+
 	// Provide Captcha token if enabled. Not required if GrantType is 'refresh_token'.
 	SecurityEmbed
 }
