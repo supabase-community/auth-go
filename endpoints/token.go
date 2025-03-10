@@ -81,8 +81,16 @@ func (c *Client) Token(req types.TokenRequest) (*types.TokenResponse, error) {
 			return nil, types.ErrInvalidTokenRequest
 		}
 	case "id_token":
-		if req.IdToken == "" || req.Provider == "" {
+		if req.IdToken == "" {
 			return nil, types.ErrInvalidTokenRequest
+		}
+
+		if req.Provider == "" ||
+			(req.Provider != "github" &&
+				req.Provider != "apple" &&
+				req.Provider != "kakao" &&
+				req.Provider != "keycloak") {
+			return nil, types.ErrInvalidProviderRequest
 		}
 	default:
 		return nil, types.ErrInvalidTokenRequest
