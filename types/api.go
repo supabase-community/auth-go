@@ -28,6 +28,7 @@ var (
 	ErrInvalidAdminUpdateFactorRequest = errors.New("admin update factor request is invalid - nothing to update")
 	ErrInvalidTokenRequest             = errors.New("token request is invalid - grant_type must be either one of password, refresh_token, or pkce, email and password must be provided for grant_type=password, refresh_token must be provided for grant_type=refresh_token, auth_code and code_verifier must be provided for grant_type=pkce")
 	ErrInvalidVerifyRequest            = errors.New("verify request is invalid - type, token and redirect_to must be provided, and email or phone must be provided to VerifyForUser")
+	ErrInvalidProviderRequest          = errors.New("provider must be one of: github, apple, kakao, keycloak")
 )
 
 // --- Request/Response Types ---
@@ -483,6 +484,12 @@ type TokenRequest struct {
 	// Code and CodeVerifier are required if GrantType is 'pkce'.
 	Code         string `json:"auth_code,omitempty"`
 	CodeVerifier string `json:"code_verifier,omitempty"`
+
+	// Provider and IdToken are required if GrantType is 'id_token'.
+	Provider    string `json:"provider,omitempty"`
+	IdToken     string `json:"id_token,omitempty"`
+	AccessToken string `json:"access_token,omitempty"`
+	Nonce       string `json:"nonce,omitempty"`
 
 	// Provide Captcha token if enabled. Not required if GrantType is 'refresh_token'.
 	SecurityEmbed

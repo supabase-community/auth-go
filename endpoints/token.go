@@ -44,6 +44,24 @@ func (c *Client) RefreshToken(refreshToken string) (*types.TokenResponse, error)
 	})
 }
 
+// Sign in with id token
+//
+// This is a convenience method that calls Token with the id_token grant type
+func (c *Client) SignInWithIdToken(provider, idToken, nonce string, accessToken string, captchaToken string) (*types.TokenResponse, error) {
+	return c.Token(types.TokenRequest{
+		GrantType:   "id_token",
+		IdToken:     idToken,
+		Nonce:       nonce,
+		Provider:    provider,
+		AccessToken: accessToken,
+		SecurityEmbed: types.SecurityEmbed{
+			Security: types.GoTrueMetaSecurity{
+				CaptchaToken: captchaToken,
+			},
+		},
+	})
+}
+
 // POST /token
 //
 // This is an OAuth2 endpoint that currently implements the password,
@@ -61,6 +79,18 @@ func (c *Client) Token(req types.TokenRequest) (*types.TokenResponse, error) {
 	case "pkce":
 		if req.Code == "" || req.CodeVerifier == "" {
 			return nil, types.ErrInvalidTokenRequest
+		}
+	case "id_token":
+		if req.IdToken == "" {
+			return nil, types.ErrInvalidTokenRequest
+		}
+
+		if req.Provider == "" ||
+			(req.Provider != "github" &&
+				req.Provider != "apple" &&
+				req.Provider != "kakao" &&
+				req.Provider != "keycloak") {
+			return nil, types.ErrInvalidProviderRequest
 		}
 	default:
 		return nil, types.ErrInvalidTokenRequest
