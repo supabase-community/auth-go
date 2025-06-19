@@ -52,14 +52,17 @@ func TestAdminListUsers(t *testing.T) {
 	require.Regexp(uuidRegex, createResp.ID)
 
 	// Then list and look up the user we just created
-	resp, err := admin.AdminListUsers()
+	page := 0
+	perPage := 1
+	resp, err := admin.AdminListUsers(types.AdminListUsersRequest{
+		Page:    &page,
+		PerPage: &perPage,
+	})
 	require.NoError(err)
 	assert.NotEmpty(resp)
 	for _, u := range resp.Users {
 		assert.NotEqual(uuid.Nil, u.ID)
-		if u.ID == createResp.ID {
-			assert.Equal(u.Email, createResp.Email)
-		}
+		assert.Equal(u.Email, createResp.Email)
 	}
 }
 
