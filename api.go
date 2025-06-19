@@ -244,7 +244,7 @@ type Client interface {
 	// POST /token
 	//
 	// This is an OAuth2 endpoint that currently implements the password, id_token,
-	//  and refresh_token grant types
+	// and refresh_token grant types
 	Token(req types.TokenRequest) (*types.TokenResponse, error)
 
 	// GET /user
