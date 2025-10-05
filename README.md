@@ -28,7 +28,6 @@ go get github.com/supabase-community/auth-go
 ```go
 package main
 
-
 import (
 	"github.com/supabase-community/auth-go"
 	"github.com/supabase-community/auth-go/types"
