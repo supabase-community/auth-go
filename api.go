@@ -215,6 +215,14 @@ type Client interface {
 	// By default recovery links can only be sent once every 60 seconds.
 	Recover(req types.RecoverRequest) error
 
+	// POST /resend
+	//
+	// Resends an existing signup confirmation email, email change email,
+	// SMS OTP or phone change OTP.
+	//
+	// You can specify a redirect url when yo
+	Resend(req types.ResendRequest) error
+
 	// GET /settings
 	//
 	// Returns the publicly available settings for this auth instance.

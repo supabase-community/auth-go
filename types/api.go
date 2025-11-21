@@ -382,10 +382,11 @@ type MagiclinkRequest struct {
 }
 
 type OTPRequest struct {
-	Email      string                 `json:"email"`
-	Phone      string                 `json:"phone"`
-	CreateUser bool                   `json:"create_user"`
-	Data       map[string]interface{} `json:"data"`
+	Email           string                 `json:"email"`
+	Phone           string                 `json:"phone"`
+	CreateUser      bool                   `json:"create_user"`
+	Data            map[string]interface{} `json:"data"`
+	EmailRedirectTo string                 `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
@@ -396,6 +397,14 @@ type RecoverRequest struct {
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
+}
+
+type ResendRequest struct {
+	Email           string                 `json:"email"`
+	Phone           string                 `json:"phone"`
+	Type            VerificationType       `json:"type"`
+	Options         map[string]interface{} `json:"options"`
+	EmailRedirectTo string                 `json:"-"`
 }
 
 type ExternalProviders struct {
