@@ -365,8 +365,9 @@ type HealthCheckResponse struct {
 }
 
 type InviteRequest struct {
-	Email string                 `json:"email"`
-	Data  map[string]interface{} `json:"data"`
+	Email      string                 `json:"email"`
+	Data       map[string]interface{} `json:"data"`
+	RedirectTo string                 `json:"-"`
 }
 
 type InviteResponse struct {
@@ -386,13 +387,15 @@ type OTPRequest struct {
 	Phone      string                 `json:"phone"`
 	CreateUser bool                   `json:"create_user"`
 	Data       map[string]interface{} `json:"data"`
+	RedirectTo string                 `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
 }
 
 type RecoverRequest struct {
-	Email string `json:"email"`
+	Email      string `json:"email"`
+	RedirectTo string `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed

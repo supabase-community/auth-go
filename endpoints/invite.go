@@ -27,6 +27,12 @@ func (c *Client) Invite(req types.InviteRequest) (*types.InviteResponse, error) 
 		return nil, err
 	}
 
+	if req.RedirectTo != "" {
+		q := r.URL.Query()
+		q.Add("redirect_to", req.RedirectTo)
+		r.URL.RawQuery = q.Encode()
+	}
+
 	resp, err := c.client.Do(r)
 	if err != nil {
 		return nil, err
