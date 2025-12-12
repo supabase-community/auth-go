@@ -89,6 +89,7 @@ func (c *Client) Token(req types.TokenRequest) (*types.TokenResponse, error) {
 			(req.Provider != "github" &&
 				req.Provider != "apple" &&
 				req.Provider != "kakao" &&
+				req.Provider != "google" &&
 				req.Provider != "keycloak") {
 			return nil, types.ErrInvalidProviderRequest
 		}

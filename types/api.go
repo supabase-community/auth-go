@@ -28,7 +28,7 @@ var (
 	ErrInvalidAdminUpdateFactorRequest = errors.New("admin update factor request is invalid - nothing to update")
 	ErrInvalidTokenRequest             = errors.New("token request is invalid - grant_type must be either one of password, refresh_token, or pkce, email and password must be provided for grant_type=password, refresh_token must be provided for grant_type=refresh_token, auth_code and code_verifier must be provided for grant_type=pkce")
 	ErrInvalidVerifyRequest            = errors.New("verify request is invalid - type, token and redirect_to must be provided, and email or phone must be provided to VerifyForUser")
-	ErrInvalidProviderRequest          = errors.New("provider must be one of: github, apple, kakao, keycloak")
+	ErrInvalidProviderRequest          = errors.New("provider must be one of: github, apple, kakao, google, keycloak")
 )
 
 // --- Request/Response Types ---
@@ -365,8 +365,9 @@ type HealthCheckResponse struct {
 }
 
 type InviteRequest struct {
-	Email string                 `json:"email"`
-	Data  map[string]interface{} `json:"data"`
+	Email      string                 `json:"email"`
+	Data       map[string]interface{} `json:"data"`
+	RedirectTo string                 `json:"-"`
 }
 
 type InviteResponse struct {
@@ -382,20 +383,29 @@ type MagiclinkRequest struct {
 }
 
 type OTPRequest struct {
-	Email      string                 `json:"email"`
-	Phone      string                 `json:"phone"`
-	CreateUser bool                   `json:"create_user"`
-	Data       map[string]interface{} `json:"data"`
+	Email           string                 `json:"email"`
+	Phone           string                 `json:"phone"`
+	CreateUser      bool                   `json:"create_user"`
+	Data            map[string]interface{} `json:"data"`
+	RedirectTo      string                 `json:"-"`
+	EmailRedirectTo string                 `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
 }
 
 type RecoverRequest struct {
-	Email string `json:"email"`
+	Email      string `json:"email"`
+	RedirectTo string `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
+}
+
+type ResendRequest struct {
+	Email           string `json:"email,omitempty"`
+	Phone           string `json:"phone,omitempty"`
+	EmailRedirectTo string `json:"-"`
 }
 
 type ExternalProviders struct {

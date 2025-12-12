@@ -28,7 +28,10 @@ go get github.com/supabase-community/auth-go
 ```go
 package main
 
-import "github.com/supabase-community/auth-go"
+import (
+    "github.com/supabase-community/auth-go"
+    "github.com/supabase-community/auth-go/types"
+)
 
 const (
     projectReference = "<your_supabase_project_reference>"
@@ -43,7 +46,7 @@ func main() {
     )
 
     // Log in a user (get access and refresh tokens)
-    resp, err := client.Token(auth.TokenRequest{
+    resp, err := client.Token(types.TokenRequest{
         GrantType: "password",
         Email: "<user_email>",
         Password: "<user_password>",
@@ -67,7 +70,7 @@ client := auth.New(
     apiKey,
 )
 
-token, err := client.Token(auth.TokenRequest{
+token, err := client.Token(types.TokenRequest{
         GrantType: "password",
         Email: email,
         Password: password,

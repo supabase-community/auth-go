@@ -29,6 +29,12 @@ func (c *Client) Recover(req types.RecoverRequest) error {
 		return err
 	}
 
+	if req.RedirectTo != "" {
+		q := r.URL.Query()
+		q.Add("redirect_to", req.RedirectTo)
+		r.URL.RawQuery = q.Encode()
+	}
+
 	resp, err := c.client.Do(r)
 	if err != nil {
 		return err
