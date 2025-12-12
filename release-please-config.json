@@ -1,18 +1,4 @@
 {
-  "last-release-sha": "827cae4a9749a306e28fb6a6248fb30eda471dc5",
-  "release-type": "go",
-  "package-name": "auth-go",
-  "bump-minor-pre-major": true,
-  "bump-patch-for-minor-pre-major": false,
-  "changelog-sections": [
-    {"type": "feat", "section": "Features"},
-    {"type": "fix", "section": "Bug Fixes"},
-    {"type": "perf", "section": "Performance Improvements"},
-    {"type": "refactor", "section": "Code Refactoring"},
-    {"type": "docs", "section": "Documentation"},
-    {"type": "test", "section": "Tests", "hidden": true},
-    {"type": "chore", "section": "Miscellaneous", "hidden": true},
-    {"type": "ci", "section": "CI/CD", "hidden": true}
-  ],
-  "extra-files": []
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "go"
 }
