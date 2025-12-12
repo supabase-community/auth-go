@@ -10,33 +10,29 @@ import (
 	"github.com/supabase-community/auth-go/types"
 )
 
-const otpPath = "/otp"
+const resendPath = "/resend"
 
-// POST /otp
-// One-Time-Password. Will deliver a magiclink or SMS OTP to the user depending
-// on whether the request contains an email or phone key.
+// POST /resend
 //
-// If CreateUser is true, the user will be automatically signed up if the user
-// doesn't exist.
-func (c *Client) OTP(req types.OTPRequest) error {
+// Resends an existing signup confirmation email, email change email,
+// SMS OTP or phone change OTP.
+//
+// You can specify a redirect url when you resend an email link using
+// the emailRedirectTo option.
+func (c *Client) Resend(req types.ResendRequest) error {
 	body, err := json.Marshal(req)
 	if err != nil {
 		return err
 	}
 
-	r, err := c.newRequest(otpPath, http.MethodPost, bytes.NewBuffer(body))
+	r, err := c.newRequest(resendPath, http.MethodPost, bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}
 
-	q := r.URL.Query()
-	if req.RedirectTo != "" {
-		q.Add("redirect_to", req.RedirectTo)
-	}
 	if req.EmailRedirectTo != "" {
+		q := r.URL.Query()
 		q.Add("redirect_to", req.EmailRedirectTo)
-	}
-	if len(q) > 0 {
 		r.URL.RawQuery = q.Encode()
 	}
 

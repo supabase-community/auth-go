@@ -383,11 +383,12 @@ type MagiclinkRequest struct {
 }
 
 type OTPRequest struct {
-	Email      string                 `json:"email"`
-	Phone      string                 `json:"phone"`
-	CreateUser bool                   `json:"create_user"`
-	Data       map[string]interface{} `json:"data"`
-	RedirectTo string                 `json:"-"`
+	Email           string                 `json:"email"`
+	Phone           string                 `json:"phone"`
+	CreateUser      bool                   `json:"create_user"`
+	Data            map[string]interface{} `json:"data"`
+	RedirectTo      string                 `json:"-"`
+	EmailRedirectTo string                 `json:"-"`
 
 	// Provide Captcha token if enabled.
 	SecurityEmbed
