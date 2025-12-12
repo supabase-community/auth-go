@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/supabase-community/auth-go/types"
@@ -28,11 +27,7 @@ func (c *Client) AdminListUserFactors(req types.AdminListUserFactorsRequest) (*t
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var factors []types.Factor
@@ -73,11 +68,7 @@ func (c *Client) AdminUpdateUserFactor(req types.AdminUpdateUserFactorRequest) (
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var res types.AdminUpdateUserFactorResponse
@@ -107,11 +98,7 @@ func (c *Client) AdminDeleteUserFactor(req types.AdminDeleteUserFactorRequest) e
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return handleErrorResponse(resp)
 	}
 
 	return nil

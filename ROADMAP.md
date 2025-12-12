@@ -32,7 +32,7 @@ This roadmap outlines the path from pre-release (v1.4.0) to production-ready (v2
 ## Phase 0: Release Automation (v1.5.0)
 
 **Goal:** Automate release process and CHANGELOG generation
-**Status:** Not Started
+**Status:** ✅ Complete
 **Breaking Changes:** NO
 **Duration:** 1-2 weeks
 
@@ -151,13 +151,13 @@ PR with commits
 
 ### 0.2 Phase 0 Deliverables
 
-- [ ] Conventional Commits documented in CONTRIBUTING.md
-- [ ] release-please workflow configured
-- [ ] CHANGELOG.md initialized
-- [ ] CI validates PR titles (optional but recommended)
-- [ ] First automated release (v1.5.0) published
+- [x] Conventional Commits documented in CONTRIBUTING.md
+- [x] release-please workflow configured
+- [x] CHANGELOG.md initialized
+- [x] CI validates PR titles (optional but recommended)
+- [x] First automated release (v1.5.0) published
 
-**Success Criteria:** One complete release cycle through release-please
+**Success Criteria:** ✅ One complete release cycle through release-please
 
 ---
 
