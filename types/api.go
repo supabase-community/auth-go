@@ -28,7 +28,7 @@ var (
 	ErrInvalidAdminUpdateFactorRequest = errors.New("admin update factor request is invalid - nothing to update")
 	ErrInvalidTokenRequest             = errors.New("token request is invalid - grant_type must be either one of password, refresh_token, or pkce, email and password must be provided for grant_type=password, refresh_token must be provided for grant_type=refresh_token, auth_code and code_verifier must be provided for grant_type=pkce")
 	ErrInvalidVerifyRequest            = errors.New("verify request is invalid - type, token and redirect_to must be provided, and email or phone must be provided to VerifyForUser")
-	ErrInvalidProviderRequest          = errors.New("provider must be one of: github, apple, kakao, keycloak")
+	ErrInvalidProviderRequest          = errors.New("provider must be one of: github, apple, kakao, google, keycloak")
 )
 
 // --- Request/Response Types ---
