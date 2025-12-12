@@ -20,10 +20,13 @@ type AuthError struct {
 }
 
 // Error implements the error interface.
+// The error message format matches the previous fmt.Errorf format for backward compatibility.
 func (e *AuthError) Error() string {
 	if e.ErrorCode != "" {
-		return fmt.Sprintf("auth error (status %d, code %s): %s",
+		// Include error code if available, but keep the old format for compatibility
+		return fmt.Sprintf("response status code %d (error_code: %s): %s",
 			e.StatusCode, e.ErrorCode, e.Message)
 	}
-	return fmt.Sprintf("auth error (status %d): %s", e.StatusCode, e.Message)
+	// Match the old format: "response status code %d: %s"
+	return fmt.Sprintf("response status code %d: %s", e.StatusCode, e.Message)
 }
