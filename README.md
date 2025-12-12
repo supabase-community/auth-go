@@ -112,6 +112,34 @@ func (*Client) WithClient(client http.Client) *Client
 
 By default, the library uses a default http.Client. If you want to configure your own, pass one in using `WithClient` and it will be used for all requests made with the returned `*auth.Client`.
 
+## Contributing
+
+We welcome contributions! This project uses [Conventional Commits](https://www.conventionalcommits.org/) for clear and automated changelog generation.
+
+### Commit Message Format
+
+```
+<type>(<scope>): <description>
+```
+
+**Types:**
+- `feat`: New feature (triggers minor version bump)
+- `fix`: Bug fix (triggers patch version bump)
+- `docs`: Documentation changes
+- `test`: Adding or updating tests
+- `refactor`: Code refactoring
+- `perf`: Performance improvements
+- `chore`: Maintenance tasks
+
+**Examples:**
+```bash
+feat: add retry logic with exponential backoff
+fix(admin): handle pagination errors properly
+docs: update README with examples
+```
+
+For more details, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Testing
 
 > You don't need to know this stuff to use the library
