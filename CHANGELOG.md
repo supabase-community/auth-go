@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0](https://github.com/supabase-community/auth-go/compare/v1.4.0...v1.5.0) (2025-12-12)
+
+
+### Features
+
+* add automated release workflow with release-please ([a934c3e](https://github.com/supabase-community/auth-go/commit/a934c3e5930d627c21f1fcadb2a495bac0ab7b58))
+* add resend endpoint and enhance invite/OTP/verify methods ([09e47a2](https://github.com/supabase-community/auth-go/commit/09e47a2a0aaa0285ed451c7a9993d079d437c978))
+
+
+### Bug Fixes
+
+* move release-please config files to .github directory ([a934c3e](https://github.com/supabase-community/auth-go/commit/a934c3e5930d627c21f1fcadb2a495bac0ab7b58))
+
 ## [Unreleased]
 
 ## [1.4.0](https://github.com/supabase-community/auth-go/compare/v1.3.2...v1.4.0) - 2025-06-19
