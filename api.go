@@ -334,4 +334,34 @@ type Client interface {
 	// on the request struct. In this case, the URL to redirect to will be returned
 	// in the response.
 	SSO(req types.SSORequest) (*types.SSOResponse, error)
+
+	// GET /admin/custom-providers
+	//
+	// Get a list of all custom OAuth2/OIDC providers in the system. Set
+	// ProviderType on the request to filter by "oauth2" or "oidc".
+	//
+	// Requires the custom OAuth feature to be enabled on the server.
+	AdminListCustomOAuthProviders(req types.AdminListCustomOAuthProvidersRequest) (*types.AdminListCustomOAuthProvidersResponse, error)
+
+	// POST /admin/custom-providers
+	//
+	// Create a new custom OAuth2 or OIDC provider. The identifier must be
+	// prefixed with "custom:".
+	AdminCreateCustomOAuthProvider(req types.AdminCreateCustomOAuthProviderRequest) (*types.AdminCreateCustomOAuthProviderResponse, error)
+
+	// GET /admin/custom-providers/{identifier}
+	//
+	// Get a custom OAuth2/OIDC provider by identifier.
+	AdminGetCustomOAuthProvider(req types.AdminGetCustomOAuthProviderRequest) (*types.AdminGetCustomOAuthProviderResponse, error)
+
+	// PUT /admin/custom-providers/{identifier}
+	//
+	// Update a custom OAuth2/OIDC provider by identifier. Omitted fields are
+	// left unchanged. The provider type and identifier cannot be changed.
+	AdminUpdateCustomOAuthProvider(req types.AdminUpdateCustomOAuthProviderRequest) (*types.AdminUpdateCustomOAuthProviderResponse, error)
+
+	// DELETE /admin/custom-providers/{identifier}
+	//
+	// Delete a custom OAuth2/OIDC provider by identifier.
+	AdminDeleteCustomOAuthProvider(req types.AdminDeleteCustomOAuthProviderRequest) error
 }

@@ -575,3 +575,143 @@ type VerifyForUserRequest struct {
 type VerifyForUserResponse struct {
 	Session
 }
+
+type ProviderType string
+
+const (
+	ProviderTypeOAuth2 ProviderType = "oauth2"
+	ProviderTypeOIDC   ProviderType = "oidc"
+)
+
+type OIDCDiscovery struct {
+	Issuer                 string   `json:"issuer"`
+	AuthorizationEndpoint  string   `json:"authorization_endpoint"`
+	TokenEndpoint          string   `json:"token_endpoint"`
+	UserinfoEndpoint       string   `json:"userinfo_endpoint,omitempty"`
+	JwksURI                string   `json:"jwks_uri"`
+	ScopesSupported        []string `json:"scopes_supported,omitempty"`
+	ResponseTypesSupported []string `json:"response_types_supported,omitempty"`
+	GrantTypesSupported    []string `json:"grant_types_supported,omitempty"`
+	SubjectTypesSupported  []string `json:"subject_types_supported,omitempty"`
+}
+
+// CustomOAuthProvider is a custom OAuth2 or OIDC provider configuration.
+//
+// The client secret is never returned by the server.
+type CustomOAuthProvider struct {
+	ID           uuid.UUID               `json:"id"`
+	ProviderType ProviderType `json:"provider_type"`
+
+	Identifier            string                 `json:"identifier"`
+	Name                  string                 `json:"name"`
+	ClientID              string                 `json:"client_id"`
+	AcceptableClientIDs   []string               `json:"acceptable_client_ids"`
+	Scopes                []string               `json:"scopes"`
+	PKCEEnabled           bool                   `json:"pkce_enabled"`
+	AttributeMapping      map[string]interface{} `json:"attribute_mapping"`
+	CustomClaimsAllowlist []string               `json:"custom_claims_allowlist"`
+	AuthorizationParams   map[string]interface{} `json:"authorization_params"`
+	Enabled               bool                   `json:"enabled"`
+	EmailOptional         bool                   `json:"email_optional"`
+
+	// OIDC only
+	Issuer            *string                `json:"issuer,omitempty"`
+	DiscoveryURL      *string                `json:"discovery_url,omitempty"`
+	SkipNonceCheck    bool                   `json:"skip_nonce_check"`
+	CachedDiscovery *OIDCDiscovery `json:"discovery_document,omitempty"`
+
+	// OAuth2 only
+	AuthorizationURL *string `json:"authorization_url,omitempty"`
+	TokenURL         *string `json:"token_url,omitempty"`
+	UserinfoURL      *string `json:"userinfo_url,omitempty"`
+	JwksURI          *string `json:"jwks_uri,omitempty"`
+
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type AdminListCustomOAuthProvidersRequest struct {
+	ProviderType ProviderType `json:"-"`
+}
+
+type AdminListCustomOAuthProvidersResponse struct {
+	Providers []CustomOAuthProvider `json:"providers"`
+}
+
+type AdminCreateCustomOAuthProviderRequest struct {
+	ProviderType ProviderType `json:"provider_type"`
+
+	// Identifier must be prefixed with "custom:", e.g. "custom:acme".
+	Identifier            string                 `json:"identifier"`
+	Name                  string                 `json:"name"`
+	ClientID              string                 `json:"client_id"`
+	ClientSecret          string                 `json:"client_secret"`
+	AcceptableClientIDs   []string               `json:"acceptable_client_ids,omitempty"`
+	Scopes                []string               `json:"scopes,omitempty"`
+	PKCEEnabled           *bool                  `json:"pkce_enabled,omitempty"`
+	AttributeMapping      map[string]interface{} `json:"attribute_mapping,omitempty"`
+	CustomClaimsAllowlist []string               `json:"custom_claims_allowlist,omitempty"`
+	AuthorizationParams   map[string]interface{} `json:"authorization_params,omitempty"`
+	Enabled               *bool                  `json:"enabled,omitempty"`
+	EmailOptional         *bool                  `json:"email_optional,omitempty"`
+
+	// OIDC only
+	Issuer         string  `json:"issuer,omitempty"`
+	DiscoveryURL   *string `json:"discovery_url,omitempty"`
+	SkipNonceCheck *bool   `json:"skip_nonce_check,omitempty"`
+
+	// OAuth2 only
+	AuthorizationURL string  `json:"authorization_url,omitempty"`
+	TokenURL         string  `json:"token_url,omitempty"`
+	UserinfoURL      string  `json:"userinfo_url,omitempty"`
+	JwksURI          *string `json:"jwks_uri,omitempty"`
+}
+
+type AdminCreateCustomOAuthProviderResponse struct {
+	CustomOAuthProvider
+}
+
+type AdminGetCustomOAuthProviderRequest struct {
+	Identifier string `json:"-"`
+}
+
+type AdminGetCustomOAuthProviderResponse struct {
+	CustomOAuthProvider
+}
+
+type AdminUpdateCustomOAuthProviderRequest struct {
+	// Identifier of the provider to update, including the "custom:" prefix.
+	// Sent in the URL, not the body.
+	Identifier string `json:"-"`
+
+	Name                  string                 `json:"name,omitempty"`
+	ClientID              string                 `json:"client_id,omitempty"`
+	ClientSecret          string                 `json:"client_secret,omitempty"`
+	AcceptableClientIDs   []string               `json:"acceptable_client_ids,omitempty"`
+	Scopes                []string               `json:"scopes,omitempty"`
+	PKCEEnabled           *bool                  `json:"pkce_enabled,omitempty"`
+	AttributeMapping      map[string]interface{} `json:"attribute_mapping,omitempty"`
+	CustomClaimsAllowlist []string               `json:"custom_claims_allowlist,omitempty"`
+	AuthorizationParams   map[string]interface{} `json:"authorization_params,omitempty"`
+	Enabled               *bool                  `json:"enabled,omitempty"`
+	EmailOptional         *bool                  `json:"email_optional,omitempty"`
+
+	// OIDC only
+	Issuer         string  `json:"issuer,omitempty"`
+	DiscoveryURL   *string `json:"discovery_url,omitempty"`
+	SkipNonceCheck *bool   `json:"skip_nonce_check,omitempty"`
+
+	// OAuth2 only
+	AuthorizationURL string  `json:"authorization_url,omitempty"`
+	TokenURL         string  `json:"token_url,omitempty"`
+	UserinfoURL      string  `json:"userinfo_url,omitempty"`
+	JwksURI          *string `json:"jwks_uri,omitempty"`
+}
+
+type AdminUpdateCustomOAuthProviderResponse struct {
+	CustomOAuthProvider
+}
+
+type AdminDeleteCustomOAuthProviderRequest struct {
+	Identifier string `json:"-"`
+}
