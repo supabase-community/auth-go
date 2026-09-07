@@ -5,6 +5,12 @@
 ![GitHub](https://img.shields.io/github/license/supabase-community/auth-go)
 [![Go Reference](https://pkg.go.dev/badge/github.com/supabase-community/auth-go.svg)](https://pkg.go.dev/github.com/supabase-community/auth-go)
 
+> [!IMPORTANT]
+> **Update, September 2026:**  
+> This codebase is not being actively maintained by Supabase or the community, but it's not the end of the road...
+> We're busy building an official Supabase SDK for Go that will make this repository and the module it publishes obsolete.
+> [This thread](https://github.com/orgs/supabase/discussions/49311) has more information, as well as providing a venue for discussion in the meantime.
+
 A Golang client library for the [Supabase Auth](https://github.com/supabase/auth) API.
 
 For more information about the Supabase fork of GoTrue, [check out the project here](https://github.com/supabase/auth).

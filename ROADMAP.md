@@ -6,6 +6,12 @@
 **Target:** v2.0.0 Production Release
 **Current Version:** v1.4.0 (Pre-release)
 
+> [!IMPORTANT]
+> **Update, September 2026:**  
+> This codebase is not being actively maintained by Supabase or the community, but it's not the end of the road...
+> We're busy building an official Supabase SDK for Go that will make this repository and the module it publishes obsolete.
+> [This thread](https://github.com/orgs/supabase/discussions/49311) has more information, as well as providing a venue for discussion in the meantime.
+
 ## Executive Summary
 
 This roadmap outlines the path from pre-release (v1.4.0) to production-ready (v2.0.0+) for the auth-go library, following Go open source best practices. The plan prioritizes **non-breaking changes first** to deliver value to users sooner, with breaking changes deferred to v2.0.0.
