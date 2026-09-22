@@ -5,7 +5,7 @@ services:
     container_name: auth
     depends_on:
       - postgres
-    image: supabase/auth:v2.160.0
+    image: supabase/auth:v2.188.0
     restart: on-failure
     ports:
       - "9999:9999"
@@ -30,7 +30,7 @@ services:
     container_name: auth_autoconfirm
     depends_on:
       - postgres
-    image: supabase/auth:v2.160.0
+    image: supabase/auth:v2.188.0
     restart: on-failure
     ports:
       - "9998:9998"
@@ -62,7 +62,7 @@ services:
     container_name: auth_signup_disabled
     depends_on:
       - postgres
-    image: supabase/auth:v2.160.0
+    image: supabase/auth:v2.188.0
     restart: on-failure
     ports:
       - "9997:9997"
