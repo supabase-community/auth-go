@@ -75,11 +75,7 @@ func (c *Client) Authorize(req types.AuthorizeRequest) (*types.AuthorizeResponse
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusFound {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	url := resp.Header.Get("Location")

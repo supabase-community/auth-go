@@ -3,8 +3,6 @@ package endpoints
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/supabase-community/auth-go/types"
@@ -48,11 +46,7 @@ func (c *Client) SSO(req types.SSORequest) (*types.SSOResponse, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusSeeOther {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	// If the client is not following redirects, we can unmarshal the response from

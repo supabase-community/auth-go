@@ -1,7 +1,6 @@
 package endpoints
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -29,11 +28,7 @@ func (c *Client) SAMLMetadata() ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	return io.ReadAll(resp.Body)

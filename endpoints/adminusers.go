@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/supabase-community/auth-go/types"
@@ -33,11 +32,7 @@ func (c *Client) AdminCreateUser(req types.AdminCreateUserRequest) (*types.Admin
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var res types.AdminCreateUserResponse
@@ -74,11 +69,7 @@ func (c *Client) AdminListUsers(req types.AdminListUsersRequest) (*types.AdminLi
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var res types.AdminListUsersResponse
@@ -107,11 +98,7 @@ func (c *Client) AdminGetUser(req types.AdminGetUserRequest) (*types.AdminGetUse
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var res types.AdminGetUserResponse
@@ -145,11 +132,7 @@ func (c *Client) AdminUpdateUser(req types.AdminUpdateUserRequest) (*types.Admin
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return nil, fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return nil, fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return nil, handleErrorResponse(resp)
 	}
 
 	var res types.AdminUpdateUserResponse
@@ -178,11 +161,7 @@ func (c *Client) AdminDeleteUser(req types.AdminDeleteUserRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fullBody, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return fmt.Errorf("response status code %d", resp.StatusCode)
-		}
-		return fmt.Errorf("response status code %d: %s", resp.StatusCode, fullBody)
+		return handleErrorResponse(resp)
 	}
 
 	return nil
